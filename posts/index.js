@@ -15,7 +15,6 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/posts', async (req, res) => {
-  console.log('Received POST request');
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
   posts[id] = {
@@ -23,7 +22,7 @@ app.post('/posts', async (req, res) => {
     title,
   };
 
-  await axios.post('http://localhost:4005/events', {
+  await axios.post('http://event-bus-srv:4005/events', {
     type: 'PostCreated',
     data: {
       id,
